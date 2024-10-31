@@ -40,12 +40,6 @@ import java.util.Scanner;
 
 public class TGestionSerializado {
 
-	private static final int RECUPERAR_DATOS = 1;
-	private static final int SALVAR_DATOS = 2;
-	private static final int MOSTRAR_DATOS = 3;
-	private static final int EXISTE_DATO = 4;
-	private static final int ELIMINAR_DATO = 5;
-	private static final int SALIR = 0;
 
 	public static void main(String[] args) {
 		TGestionSerializado gestion = new TGestionSerializado();
@@ -57,14 +51,14 @@ public class TGestionSerializado {
 		GestionSerializado<Profesor> gs = new GestionSerializado<>("profesores.dat");
 
 		int opc = -1;
-		while (opc != SALIR) {
+		while (opc != 0) {
 			mostrarMenu();
 			try {
 				opc = sc.nextInt();
 				procesarOpcion(opc, gs);
 			} catch (InputMismatchException e) {
 				System.out.println("Por favor, ingrese una opción válida.");
-				sc.next(); // Limpiar entrada incorrecta
+				sc.next();
 			}
 		}
 		System.out.println("Saliendo...");
@@ -83,22 +77,22 @@ public class TGestionSerializado {
 
 	private void procesarOpcion(int opc, GestionSerializado<Profesor> gs) {
 		switch (opc) {
-			case RECUPERAR_DATOS:
+			case 1:
 				gs.recuperarDatos();
 				break;
-			case SALVAR_DATOS:
+			case 2:
 				agregarProfesor(gs);
 				break;
-			case MOSTRAR_DATOS:
+			case 3:
 				gs.mostrarDatos();
 				break;
-			case EXISTE_DATO:
+			case 4:
 				verificarExistenciaProfesor(gs);
 				break;
-			case ELIMINAR_DATO:
+			case 5:
 				eliminarProfesor(gs);
 				break;
-			case SALIR:
+			case 0:
 				break;
 			default:
 				System.out.println("Opción inválida, intente nuevamente.");
@@ -108,7 +102,7 @@ public class TGestionSerializado {
 
 	private void agregarProfesor(GestionSerializado<Profesor> gs) {
 		Profesor p = new Profesor();
-		p = p.leerProfesor(); // Asume que leerProfesor() obtiene datos del usuario
+		p = p.leerProfesor();
 		gs.salvarDato(p);
 		System.out.println("Profesor agregado correctamente.");
 	}
